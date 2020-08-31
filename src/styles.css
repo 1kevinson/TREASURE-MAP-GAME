@@ -1,12 +1,6 @@
-h1 {
-  color: white;
-  background-color: black;
-}
-
 #map-box {
-  border: solid 2px #cecdcd;
+  border: solid 1px #8e8c8c;
   height: 30rem;
-  width: 40rem;
 }
 
 .row-cards {
