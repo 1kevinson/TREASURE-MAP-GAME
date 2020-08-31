@@ -7,8 +7,8 @@ export enum Orientation {
 
 // Position on the multidimensional array Grid
 export type GridPosition = {
-  x: number;
-  y: number;
+  x: number; // ordinate
+  y: number; // abscissa
 };
 
 // The moves of the adventurer
@@ -58,18 +58,21 @@ class Adventurer extends Grid {
   treasureCollected: number;
   position: GridPosition;
   orientation: Orientation;
+  moveSequence: string;
 
   constructor(
     value: string,
     name: string,
     position: GridPosition,
-    orientation: Orientation
+    orientation: Orientation,
+    moveSequence: string
   ) {
     super(value);
     this.name = name;
     this.treasureCollected = 0;
     this.position = position;
     this.orientation = orientation;
+    this.moveSequence = moveSequence;
   }
 
   addTreasure(): void {

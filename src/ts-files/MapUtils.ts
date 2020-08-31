@@ -16,6 +16,7 @@ const createMap = (rows: number, columns: number) => {
     .map((row) => new Array(columns).fill([new EmptyGrid("-")]));
 };
 
+// Return a 3D grid, and adventurer entity
 const initializeMap = (content: string): [Grid[][][], Adventurer] => {
   let map = [];
   let adventurer = null;
@@ -44,7 +45,8 @@ const initializeMap = (content: string): [Grid[][][], Adventurer] => {
         `A(${lineArray[1].trim()})`,
         lineArray[1].trim(),
         { x: +lineArray[3], y: +lineArray[2] },
-        lineArray[4].trim() as Orientation
+        lineArray[4].trim() as Orientation,
+        lineArray[5].trim()
       );
       map[+lineArray[3]][+lineArray[2]] = [adventurer];
     }
@@ -100,13 +102,13 @@ const moveAdventurer = (
 ): GridPosition => {
   switch (orientation) {
     case Orientation.NORTH:
-      return { x: position.x - 1, y: position.y };
+      return { x: position.x - 1, y: position.y };  // move up
     case Orientation.SOUTH:
-      return { x: position.x + 1, y: position.y };
+      return { x: position.x + 1, y: position.y };  // move down
     case Orientation.WEST:
-      return { x: position.x, y: position.y - 1 };
+      return { x: position.x, y: position.y - 1 };  // move left
     case Orientation.EAST:
-      return { x: position.x, y: position.y + 1 };
+      return { x: position.x, y: position.y + 1 };  // move right
     default:
       return position;
   }
