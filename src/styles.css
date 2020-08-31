@@ -76,6 +76,11 @@
   padding-top: 1.5%;
 }
 
+#btn-start,
+#btn-result:hover {
+  cursor: pointer;
+}
+
 #title-box {
   border: solid 1px black;
   height: 5rem;
