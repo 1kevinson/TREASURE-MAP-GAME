@@ -6,9 +6,11 @@ import { validateFile } from "./ts-files/Validator";
 const inputFile = document.querySelector("#file-input");
 const btnStart = document.querySelector("#btn-start");
 const btnResult = document.querySelector("#btn-result");
+const alertBox = document.querySelector("#alert-file");
 
-//Disable buttons
-btnStart.style.disabled;
+//Disable buttons at the app start
+btnStart.classList.replace("btn-start", "btn-off");
+btnResult.classList.replace("btn-result", "btn-off");
 
 //Get file entered by user
 inputFile.addEventListener("change", (e) => {
@@ -28,10 +30,7 @@ inputFile.addEventListener("change", (e) => {
   reader.readAsText(e.target.files[0]);
 });
 
-btnStart.addEventListener("click", (e) => {
-  console.log(content);
-  console.log(validateFile(content));
-});
+btnStart.addEventListener("click", (e) => {});
 
 const content = `C​ - 3 - 4
 M​ - 1 - 0
@@ -41,3 +40,9 @@ T​ - 1 - 3 - 3
 A​ - Lara - 1 - 1 - S - AADADAGGA`;
 
 const isValid = validateFile(content);
+console.log(isValid);
+
+if (isValid) {
+} else {
+  alertBox.hidden = false;
+}
