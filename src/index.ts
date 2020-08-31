@@ -7,16 +7,20 @@ import {
   moveAdventurer,
   renderMap,
 } from "./ts-files/MapUtils";
+
 import { validateFile } from "./ts-files/Validator";
 
 //Check validity
 const isValid = false;
 
+//Maps datas initialization
+const contents: string;
+
 //Get DOM Elements
 const inputFile = document.querySelector("#file-input");
 const btnStart = document.querySelector("#btn-start");
 const btnResult = document.querySelector("#btn-result");
-const alertBox = document.querySelector("#alert-file");
+const alertBox = document.querySelectorAll(".alert-file");
 
 //Disable buttons at the app start
 btnStart.classList.replace("btn-start", "btn-off");
@@ -32,14 +36,20 @@ inputFile.addEventListener("change", (e) => {
 
   reader.onload = function (event) {
     //Get the file data
-    const contents = event.target.result.toString();
+    contents = event.target.result.toString();
     isValid = validateFile(contents);
 
     if (isValid) {
       //Enable buttons if the file is valid
       btnStart.classList.replace("btn-off", "btn-start");
+      alertBox[1].hidden = false;
+      setTimeout(() => {
+        alertBox[1].hidden = true;
+      }, 2500);
+
+      initializer(contents);
     } else {
-      alertBox.hidden = false;
+      alertBox[0].hidden = false;
     }
   };
   reader.onerror = function (event) {
@@ -49,13 +59,19 @@ inputFile.addEventListener("change", (e) => {
   reader.readAsText(e.target.files[0]);
 });
 
-btnStart.addEventListener("click", (e) => {});
+btnStart.addEventListener("click", (e) => {
+  alertBox[1].hidden = true;
+  runTheMap();
+});
 
-if (isValid) {
-  const [mapData, adventurer] = initializeMap(content);
+function initializer(datas: string) {
+  const [mapData, adventurer] = initializeMap(datas);
 
   renderMap(mapData);
+}
 
+function runTheMap() {
+  initializer();
   let orientation = adventurer.orientation;
   let position = adventurer.position;
   const sequence = adventurer.moveSequence;
@@ -99,5 +115,4 @@ if (isValid) {
 
     renderMap(mapData);
   }
-} else {
 }

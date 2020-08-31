@@ -22,6 +22,7 @@ const initializeMap = (content: string): [Grid[][][], Adventurer] => {
   let adventurer = null;
 
   const array = content.split("\n");
+  array.pop();
   for (const line of array) {
     if (line.indexOf("#") === 0) {
       continue;
@@ -102,13 +103,13 @@ const moveAdventurer = (
 ): GridPosition => {
   switch (orientation) {
     case Orientation.NORTH:
-      return { x: position.x - 1, y: position.y };  // move up
+      return { x: position.x - 1, y: position.y }; // move up
     case Orientation.SOUTH:
-      return { x: position.x + 1, y: position.y };  // move down
+      return { x: position.x + 1, y: position.y }; // move down
     case Orientation.WEST:
-      return { x: position.x, y: position.y - 1 };  // move left
+      return { x: position.x, y: position.y - 1 }; // move left
     case Orientation.EAST:
-      return { x: position.x, y: position.y + 1 };  // move right
+      return { x: position.x, y: position.y + 1 }; // move right
     default:
       return position;
   }
