@@ -1,6 +1,16 @@
 // @ts-nocheck
 import { Direction, EmptyGrid, Adventurer, Treasure } from "./ts-files/Classes";
+import {
+  changeOrientation,
+  getMapResult,
+  initializeMap,
+  moveAdventurer,
+  renderMap,
+} from "./ts-files/MapUtils";
 import { validateFile } from "./ts-files/Validator";
+
+//Check validity
+const isValid = false;
 
 //Get DOM Elements
 const inputFile = document.querySelector("#file-input");
@@ -21,7 +31,16 @@ inputFile.addEventListener("change", (e) => {
   e.target.nextElementSibling.innerText = "../" + filename;
 
   reader.onload = function (event) {
-    const contents = event.target.result;
+    //Get the file data
+    const contents = event.target.result.toString();
+    isValid = validateFile(contents);
+
+    if (isValid) {
+      //Enable buttons if the file is valid
+      btnStart.classList.replace("btn-off", "btn-start");
+    } else {
+      alertBox.hidden = false;
+    }
   };
   reader.onerror = function (event) {
     console.error("File could not be read! Code " + event.target.error.code);
@@ -32,21 +51,53 @@ inputFile.addEventListener("change", (e) => {
 
 btnStart.addEventListener("click", (e) => {});
 
-const content = `# {C comme Carte} - {Nb. de case en largeur} - {Nb. de case en hauteur}
-C​ - 3 - 4
-# {M comme Montagne} - {Axe horizontal} - {Axe vertical}
-M​ - 1 - 0
-M​ - 2 - 1
-# {T comme Trésor} - {Axe horizontal} - {Axe vertical} - {Nb. de trésors}
-T​ - 0 - 3 - 2
-T​ - 1 - 3 - 3
-# {A comme Aventurier} - {Nom de l’aventurier} - {Axe horizontal} - {Axe vertical} - {Orientation} - {Séquence de mouvement}
-A​ - Lara - 1 - 1 - S - AADADAGGA`;
-
-const isValid = validateFile(content);
-console.log(isValid);
-
 if (isValid) {
+  const [mapData, adventurer] = initializeMap(content);
+
+  renderMap(mapData);
+
+  let orientation = adventurer.orientation;
+  let position = adventurer.position;
+  const sequence = adventurer.moveSequence;
+
+  const sequenceArray = sequence.split("");
+
+  for (const instruction of sequenceArray) {
+    if (instruction === "A") {
+      const newPosition = moveAdventurer(orientation, position);
+      let temp = null;
+
+      if (mapData[position.x][position.y].length === 1) {
+        console.log(mapData[position.x][position.y]);
+        temp = mapData[position.x][position.y][0];
+        mapData[position.x][position.y] = [new EmptyGrid("-")];
+      } else {
+        temp = mapData[position.x][position.y][1];
+        mapData[position.x][position.y].pop();
+      }
+
+      if (mapData[newPosition.x][newPosition.y][0] instanceof Treasure) {
+        const treasure = mapData[newPosition.x][newPosition.y][0] as Treasure;
+        treasure.decrease();
+        if (treasure.quantity === 0) {
+          mapData[newPosition.x][newPosition.y].shift();
+        }
+        (temp as Adventurer).addTreasure();
+        mapData[newPosition.x][newPosition.y] = mapData[newPosition.x][
+          newPosition.y
+        ].concat([temp]);
+      } else {
+        mapData[newPosition.x][newPosition.y] = [temp];
+      }
+
+      position = newPosition;
+    }
+
+    if (instruction === "G" || instruction === "D") {
+      orientation = changeOrientation(orientation, instruction as Direction);
+    }
+
+    renderMap(mapData);
+  }
 } else {
-  alertBox.hidden = false;
 }

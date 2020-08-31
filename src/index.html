@@ -14,24 +14,31 @@
     <div id="app">
       <div class="row">
         <div class="col-4 offset-4 mt-5" id="app-box">
+          <!-- Title of the game -->
           <div id="title-box" class="col-12 mt-2">
             Treasure Map
           </div>
+          <!-- MAP -->
           <div id="map-box" class="mt-4">
             <div class="row-cards"></div>
           </div>
+          <!-- Buttons -->
           <div class="row mt-4 pl-4">
             <div class="col-5 ml-4 btn-start" id="btn-start">Start</div>
             <div class="col-5 ml-5 btn-result" id="btn-result">Result</div>
           </div>
           <div class="col-12 mt-4">
+            <!-- Upload file-->
             <div class="custom-file">
               <input type="file" class="custom-file-input" id="file-input" />
               <label class="custom-file-label">Choose file</label>
             </div>
+            <!--Alert Box  -->
             <div class="alert alert-danger mt-3" id="alert-file" hidden>
               Your file is not Valid ! Please correct it...
             </div>
+            <!-- Map Result -->
+            <div id="map-result"></div>
           </div>
         </div>
       </div>
