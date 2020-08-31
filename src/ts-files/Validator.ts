@@ -36,7 +36,7 @@ const isAdventurerValid = (line: string): boolean => {
 const validateFile = (content: string): boolean => {
   const lines = content.split("\n");
 
-  let isValid = isMapOrMountainValid(lines[0], "C");
+  let isValid = true;
 
   for (let i = 1; i < lines.length; i++) {
     //End Loop if the file doesn't start with "C" for Card
@@ -46,6 +46,10 @@ const validateFile = (content: string): boolean => {
     //Ignore the comments in file
     if (lines[i].indexOf("#") === 0) {
       continue;
+    }
+
+    if (lines[i].indexOf("C") === 0) {
+      isValid = isValid && isMapOrMountainValid(lines[i], "C");
     }
 
     if (lines[i].indexOf("M") === 0) {

@@ -32,11 +32,15 @@ inputFile.addEventListener("change", (e) => {
 
 btnStart.addEventListener("click", (e) => {});
 
-const content = `C​ - 3 - 4
+const content = `# {C comme Carte} - {Nb. de case en largeur} - {Nb. de case en hauteur}
+C​ - 3 - 4
+# {M comme Montagne} - {Axe horizontal} - {Axe vertical}
 M​ - 1 - 0
 M​ - 2 - 1
+# {T comme Trésor} - {Axe horizontal} - {Axe vertical} - {Nb. de trésors}
 T​ - 0 - 3 - 2
 T​ - 1 - 3 - 3
+# {A comme Aventurier} - {Nom de l’aventurier} - {Axe horizontal} - {Axe vertical} - {Orientation} - {Séquence de mouvement}
 A​ - Lara - 1 - 1 - S - AADADAGGA`;
 
 const isValid = validateFile(content);
