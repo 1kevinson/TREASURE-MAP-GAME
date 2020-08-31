@@ -1,3 +1,9 @@
+#app-box {
+  border: solid 1px gray;
+  padding: 1rem;
+  width: fit-content;
+}
+
 #map-box {
   border: solid 1px #8e8c8c;
   height: 30rem;
@@ -57,4 +63,26 @@
 .card-text {
   position: relative;
   top: 35%;
+}
+
+#btn-start,
+#btn-result {
+  border: solid 1px black;
+  height: 3rem;
+  background-color: black;
+  clip-path: polygon(0 0, 95% 0, 100% 12%, 100% 100%, 0 100%, 0% 50%);
+  color: white;
+  text-align: center;
+  padding-top: 1.5%;
+}
+
+#title-box {
+  border: solid 1px black;
+  height: 5rem;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding-top: 1.5%;
+  font-weight: bold;
+  font-size: 2rem;
 }

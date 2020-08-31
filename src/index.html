@@ -10,11 +10,24 @@
     />
   </head>
   <body>
-    <!-- Run the app inside the div with id = app-->
+    <!-- Run the app -->
     <div id="app">
       <div class="row">
-        <div class="col-4 offset-4 mt-4">
-          <div id="map-box"></div>
+        <div class="col-4 offset-4 mt-5" id="app-box">
+          <div id="title-box" class="col-12 mt-2">
+            Treasure Map
+          </div>
+          <div id="map-box" class="mt-4"></div>
+          <div class="row mt-4 pl-4">
+            <div class="col-5 ml-4" id="btn-start">Start</div>
+            <div class="col-5 ml-5" id="btn-result">Result</div>
+          </div>
+          <div class="col-12 mt-4">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="file-input" />
+              <label class="custom-file-label">Choose file</label>
+            </div>
+          </div>
         </div>
       </div>
     </div>
