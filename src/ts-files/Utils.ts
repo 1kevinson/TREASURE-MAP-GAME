@@ -10,7 +10,6 @@ const customArrayProperty = (originArray: Array<any>) => {
         this.forEach(function (item, index, array) {
           task(item, index, array);
           setTimeout(() => {
-            console.log(index);
             if (Object.is(index, originArray.length - 1)) {
               resolve({ status: "finished", count: array.length });
             }

@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { Direction, EmptyGrid, Adventurer, Treasure } from "./ts-files/Classes";
+import { jsPDF } from "jspdf";
 import {
   changeOrientation,
   getMapResult,
@@ -10,6 +11,7 @@ import {
 import { from } from "rxjs";
 import { validateFile } from "./ts-files/Validator";
 import { customArrayProperty } from "./ts-files/Utils";
+import { map } from "rxjs/operators";
 
 //Check validity
 const isValid: boolean = false;
@@ -18,6 +20,7 @@ const renderFinalMap: boolean = false;
 //Maps datas initialization
 const contents: string;
 const arrayOfMoves = [];
+const finalMap: string;
 
 //Get DOM Elements
 const inputFile = document.querySelector("#file-input");
@@ -72,9 +75,16 @@ inputFile.addEventListener("change", (e) => {
 
 btnStart.addEventListener("click", (e) => {
   alertBox[1].hidden = true;
-  btnResult.classList.replace("btn-off", "btn-start");
+  inputFile.disabled = true;
   btnStart.classList.replace("btn-start", "btn-off");
   runTheMap(contents);
+});
+
+btnResult.addEventListener("click", (e) => {
+  inputFile.disabled = false;
+  const getFinalMapResult = (): string => {
+    return getMapResult(finalMap);
+  };
 });
 
 function initializer(datas: string) {
@@ -131,15 +141,18 @@ function runTheMap(datas: string) {
     }
   }
 
+  //Get the final map for PDF
+  finalMap = getMapResult(mapData);
+
   //Enable new Array Property
   customArrayProperty(arrayOfMoves);
 
+  //Render the map after the adventurer move
   let offset: number = 0;
   arrayOfMoves
     .asyncForEach((move) => {
       setTimeout(() => {
         move.classList.add("card-moved", "checked");
-        console.log(move);
         setTimeout(() => {
           move.classList.remove("card-moved");
         }, 1000);
@@ -149,5 +162,6 @@ function runTheMap(datas: string) {
     .then((data) => {
       renderFinalMap = data.status === "finished";
       renderMap(mapData);
+      btnResult.classList.replace("btn-off", "btn-start");
     });
 }
