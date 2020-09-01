@@ -1,7 +1,6 @@
 #app-box {
   border: solid 1px gray;
   padding: 1rem;
-  width: fit-content;
 }
 
 #map-box {
@@ -10,7 +9,7 @@
 }
 
 .row-cards {
-  display: block;
+  display: inline-block;
   position: relative;
 }
 
@@ -19,7 +18,7 @@
 .treasure,
 .adventurer {
   border: solid 1px black;
-  height: 4rem;
+  height: 5rem;
   width: 6rem;
   margin: 0.25rem;
   display: inline-block;
@@ -60,6 +59,14 @@
   color: white;
 }
 
+.treasure:hover {
+  background: radial-gradient(
+    ellipse farthest-corner at right bottom,
+    #8a6e2f 40%,
+    transparent 90%
+  );
+}
+
 .card-text {
   position: relative;
   top: 35%;
@@ -83,6 +90,7 @@
 
 .btn-off {
   cursor: not-allowed;
+  pointer-events: none;
   border: solid 2px #a3a1a1;
   font-weight: bold;
   height: 3rem;
@@ -101,4 +109,8 @@
   padding-top: 1.5%;
   font-weight: bold;
   font-size: 2rem;
+}
+
+.movement {
+  border: solid 3px red;
 }

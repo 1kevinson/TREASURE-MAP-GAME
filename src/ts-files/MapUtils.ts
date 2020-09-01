@@ -58,6 +58,8 @@ const initializeMap = (content: string): [Grid[][][], Adventurer] => {
 
 const renderMap = (mapData: Grid[][][]) => {
   const rowCards = document.querySelector(".row-cards");
+  let rowLine = document.createElement("div");
+  rowLine.classList.add("row-line");
 
   rowCards.innerHTML = "";
 
@@ -67,31 +69,64 @@ const renderMap = (mapData: Grid[][][]) => {
       if (mapData[i][j][index] instanceof EmptyGrid) {
         const e = document.createElement("div");
         e.classList.add("card-box");
-        rowCards.appendChild(e);
+
+        if (rowLine.children.length < mapData[i].length) {
+          rowLine.appendChild(e);
+        } else {
+          rowLine = document.createElement("div");
+          rowLine.classList.add("row-line");
+          rowLine.appendChild(e);
+        }
+
+        rowCards.appendChild(rowLine);
       }
 
       if (mapData[i][j][index] instanceof Mountain) {
         const cardText = document.createElement("div");
-
         cardText.innerText = "M";
         cardText.classList.add("card-text", "mountain");
-        rowCards.appendChild(cardText);
+
+        if (rowLine.children.length < mapData[i].length) {
+          rowLine.appendChild(cardText);
+        } else {
+          rowLine = document.createElement("div");
+          rowLine.classList.add("row-line");
+          rowLine.appendChild(cardText);
+        }
+
+        rowCards.appendChild(rowLine);
       }
 
       if (mapData[i][j][index] instanceof Treasure) {
         const cardText = document.createElement("div");
-
         cardText.innerText = (mapData[i][j][index] as Treasure).getValue();
         cardText.classList.add("card-text", "treasure");
-        rowCards.appendChild(cardText);
+
+        if (rowLine.children.length < mapData[i].length) {
+          rowLine.appendChild(cardText);
+        } else {
+          rowLine = document.createElement("div");
+          rowLine.classList.add("row-line");
+          rowLine.appendChild(cardText);
+        }
+
+        rowCards.appendChild(rowLine);
       }
 
       if (mapData[i][j][index] instanceof Adventurer) {
         const cardText = document.createElement("div");
-
         cardText.innerText = mapData[i][j][index].value;
         cardText.classList.add("card-text", "adventurer");
-        rowCards.appendChild(cardText);
+
+        if (rowLine.children.length < mapData[i].length) {
+          rowLine.appendChild(cardText);
+        } else {
+          rowLine = document.createElement("div");
+          rowLine.classList.add("row-line");
+          rowLine.appendChild(cardText);
+        }
+
+        rowCards.appendChild(rowLine);
       }
     }
   }

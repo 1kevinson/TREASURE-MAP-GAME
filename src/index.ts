@@ -21,6 +21,9 @@ const inputFile = document.querySelector("#file-input");
 const btnStart = document.querySelector("#btn-start");
 const btnResult = document.querySelector("#btn-result");
 const alertBox = document.querySelectorAll(".alert-file");
+const cards = document.querySelector(".card-box");
+const mapResult = document.querySelector("#map-result");
+const rowCards = document.querySelector(".row-cards");
 
 //Disable buttons at the app start
 btnStart.classList.replace("btn-start", "btn-off");
@@ -42,14 +45,19 @@ inputFile.addEventListener("change", (e) => {
     if (isValid) {
       //Enable buttons if the file is valid
       btnStart.classList.replace("btn-off", "btn-start");
+      //show the alert box
       alertBox[1].hidden = false;
       setTimeout(() => {
+        //hide after 2.5s
         alertBox[1].hidden = true;
       }, 2500);
 
       initializer(contents);
     } else {
       alertBox[0].hidden = false;
+      setTimeout(() => {
+        alertBox[0].hidden = true;
+      }, 3500);
     }
   };
   reader.onerror = function (event) {
@@ -61,7 +69,8 @@ inputFile.addEventListener("change", (e) => {
 
 btnStart.addEventListener("click", (e) => {
   alertBox[1].hidden = true;
-  runTheMap();
+  btnResult.classList.replace("btn-off", "btn-start");
+  runTheMap(contents);
 });
 
 function initializer(datas: string) {
@@ -70,21 +79,20 @@ function initializer(datas: string) {
   renderMap(mapData);
 }
 
-function runTheMap() {
-  initializer();
+function runTheMap(datas: string) {
+  const [mapData, adventurer] = initializeMap(datas);
+
   let orientation = adventurer.orientation;
   let position = adventurer.position;
   const sequence = adventurer.moveSequence;
 
   const sequenceArray = sequence.split("");
-
   for (const instruction of sequenceArray) {
     if (instruction === "A") {
       const newPosition = moveAdventurer(orientation, position);
       let temp = null;
 
       if (mapData[position.x][position.y].length === 1) {
-        console.log(mapData[position.x][position.y]);
         temp = mapData[position.x][position.y][0];
         mapData[position.x][position.y] = [new EmptyGrid("-")];
       } else {
