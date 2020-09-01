@@ -28,7 +28,7 @@
 
 .card-moved {
   border: dashed #99030a;
-  background-color: rgba(232, 106, 111, 0.51) !important;
+  background-color: rgba(232, 106, 111, 0.51);
 }
 
 .checked {

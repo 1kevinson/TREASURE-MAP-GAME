@@ -63,7 +63,7 @@ inputFile.addEventListener("change", (e) => {
       alertBox[0].hidden = false;
       setTimeout(() => {
         alertBox[0].hidden = true;
-      }, 3500);
+      }, 6000);
     }
   };
   reader.onerror = function (event) {
@@ -73,6 +73,7 @@ inputFile.addEventListener("change", (e) => {
   reader.readAsText(e.target.files[0]);
 });
 
+//Start the game
 btnStart.addEventListener("click", (e) => {
   alertBox[1].hidden = true;
   inputFile.disabled = true;
@@ -80,19 +81,22 @@ btnStart.addEventListener("click", (e) => {
   runTheMap(contents);
 });
 
+//Get the Result as PDF
 btnResult.addEventListener("click", (e) => {
-  inputFile.disabled = false;
-  const getFinalMapResult = (): string => {
-    return getMapResult(finalMap);
-  };
+  //Generate the file
+  let docMap = new jsPDF();
+  docMap.text(finalMap, 20, 15);
+  docMap.save("treasure-map.pdf");
 });
 
+// Initialize the first map take from file
 function initializer(datas: string) {
   const [mapData, adventurer] = initializeMap(datas);
 
   renderMap(mapData);
 }
 
+// Play the Game to move the adventurer
 function runTheMap(datas: string) {
   const [mapData, adventurer] = initializeMap(datas);
 
@@ -163,5 +167,6 @@ function runTheMap(datas: string) {
       renderFinalMap = data.status === "finished";
       renderMap(mapData);
       btnResult.classList.replace("btn-off", "btn-start");
+      mapResult.hidden = false;
     });
 }
