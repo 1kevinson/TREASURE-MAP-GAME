@@ -15,6 +15,7 @@ const isValid = false;
 
 //Maps datas initialization
 const contents: string;
+const arrayOfMoves = [];
 
 //Get DOM Elements
 const inputFile = document.querySelector("#file-input");
@@ -114,13 +115,27 @@ function runTheMap(datas: string) {
         mapData[newPosition.x][newPosition.y] = [temp];
       }
 
+      arrayOfMoves.push(
+        rowCards.children[newPosition.x].children[newPosition.y]
+      );
+
       position = newPosition;
     }
-
+    //console.log(arrayOfMoves);
     if (instruction === "G" || instruction === "D") {
       orientation = changeOrientation(orientation, instruction as Direction);
     }
 
     renderMap(mapData);
   }
+}
+
+function playTheMoves() {
+  let offset: number = 0;
+  arrayOfMoves.forEach((move) => {
+    setTimeout(() => {
+      console.log(move);
+    }, 1000 + offset);
+    offset += 1000;
+  });
 }
