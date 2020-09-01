@@ -50,6 +50,10 @@ npm run build-dev
 Link to test the application : 
 
  * [Firebase Hosting](https://treasuremap01.web.app/)
+ 
+ File to test the app :
+ 
+ * [ mapFile.txt ](https://github.com/1kevinson/treasure-card-js/blob/master/src/txt-files/sample-card.txt)
 
 ## Help
 
