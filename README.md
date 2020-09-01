@@ -49,7 +49,7 @@ npm run build-dev
 
 Link to test the application : 
 
- * [Firebase Hosting](https://console.firebase.google.com/u/0/project/treasuremap01/hosting/main)
+ * [Firebase Hosting](https://treasuremap01.web.app/)
 
 ## Help
 
