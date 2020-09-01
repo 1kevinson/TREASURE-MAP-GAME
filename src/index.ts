@@ -7,11 +7,13 @@ import {
   moveAdventurer,
   renderMap,
 } from "./ts-files/MapUtils";
-
+import { from } from "rxjs";
 import { validateFile } from "./ts-files/Validator";
+import { customArrayProperty } from "./ts-files/Utils";
 
 //Check validity
-const isValid = false;
+const isValid: boolean = false;
+const renderFinalMap: boolean = false;
 
 //Maps datas initialization
 const contents: string;
@@ -71,6 +73,7 @@ inputFile.addEventListener("change", (e) => {
 btnStart.addEventListener("click", (e) => {
   alertBox[1].hidden = true;
   btnResult.classList.replace("btn-off", "btn-start");
+  btnStart.classList.replace("btn-start", "btn-off");
   runTheMap(contents);
 });
 
@@ -88,6 +91,7 @@ function runTheMap(datas: string) {
   const sequence = adventurer.moveSequence;
 
   const sequenceArray = sequence.split("");
+
   for (const instruction of sequenceArray) {
     if (instruction === "A") {
       const newPosition = moveAdventurer(orientation, position);
@@ -125,17 +129,25 @@ function runTheMap(datas: string) {
     if (instruction === "G" || instruction === "D") {
       orientation = changeOrientation(orientation, instruction as Direction);
     }
-
-    renderMap(mapData);
   }
-}
 
-function playTheMoves() {
+  //Enable new Array Property
+  customArrayProperty(arrayOfMoves);
+
   let offset: number = 0;
-  arrayOfMoves.forEach((move) => {
-    setTimeout(() => {
-      console.log(move);
-    }, 1000 + offset);
-    offset += 1000;
-  });
+  arrayOfMoves
+    .asyncForEach((move) => {
+      setTimeout(() => {
+        move.classList.add("card-moved", "checked");
+        console.log(move);
+        setTimeout(() => {
+          move.classList.remove("card-moved");
+        }, 1000);
+      }, 500 + offset);
+      offset += 1000;
+    })
+    .then((data) => {
+      renderFinalMap = data.status === "finished";
+      renderMap(mapData);
+    });
 }
