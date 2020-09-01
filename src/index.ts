@@ -30,6 +30,7 @@ const alertBox = document.querySelectorAll(".alert-file");
 const cards = document.querySelector(".card-box");
 const mapResult = document.querySelector("#map-result");
 const rowCards = document.querySelector(".row-cards");
+const btnReload = document.querySelector("#btn-reload");
 
 //Disable buttons at the app start
 btnStart.classList.replace("btn-start", "btn-off");
@@ -87,6 +88,11 @@ btnResult.addEventListener("click", (e) => {
   let docMap = new jsPDF();
   docMap.text(finalMap, 20, 15);
   docMap.save("treasure-map.pdf");
+});
+
+//Realod the Game once finished
+btnReload.addEventListener("click", () => {
+  window.location.reload();
 });
 
 // Initialize the first map take from file
