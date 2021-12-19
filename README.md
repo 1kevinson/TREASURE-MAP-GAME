@@ -1,4 +1,4 @@
-# Treasure Map for Carbon IT
+# Treasure Map Game
 
 This exercise is carried out in order to be hired
 
