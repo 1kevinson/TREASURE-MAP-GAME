@@ -1,6 +1,6 @@
 # Treasure Map Game
 
-This exercise is carried out in order to be hired
+This exercise is carried out in order to learn Typescript
 
 ## Description
 
@@ -65,7 +65,7 @@ Any advise for common problems or issues.
 ## Authors
 
  Arsene Kevin KOUOMEU
- * [Website](https://1kevinson.net)
+ * [Website](https://arsenekvn.com)
  * [Linkedin](https://www.linkedin.com/in/kevin-kouomeu/)
 
 ## Version History
